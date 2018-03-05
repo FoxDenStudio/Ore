@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM openjdk:8-jdk-alpine
 
 MAINTAINER Jadon Fowler <jadonflower@gmail.com>
 
