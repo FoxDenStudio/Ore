@@ -46,3 +46,5 @@ libraryDependencies ++= Seq(
   "org.webjars.bower" % "filesize"     % "3.5.6",
   "org.webjars.bower" % "momentjs"     % "2.20.1"
 )
+
+packageName in Universal := "ore"

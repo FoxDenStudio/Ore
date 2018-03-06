@@ -1,15 +1,22 @@
-FROM openjdk:8-jdk-alpine
+FROM anapsix/alpine-java:jdk8
+MAINTAINER Felix Kleinekathöfer <felixoiDev@gmail.com>
 
-MAINTAINER Jadon Fowler <jadonflower@gmail.com>
+ENV SBT_VERSION 0.13.15
+ENV CHECKSUM 18b106d09b2874f2a538c6e1f6b20c565885b2a8051428bd6d630fb92c1c0f96
 
-RUN apt-get update
-RUN apt-get install -y default-jdk
-
-# Install Activator
-RUN apt-get install -y unzip curl
-RUN curl -O http://downloads.typesafe.com/typesafe-activator/1.3.6/typesafe-activator-1.3.6.zip
-RUN unzip typesafe-activator-1.3.6.zip -d / && rm typesafe-activator-1.3.6.zip && chmod a+x /activator-dist-1.3.6/activator
-ENV PATH $PATH:/activator-dist-1.3.6
+# Install sbt
+RUN apk add --update bash curl openssl ca-certificates libstdc++ && \
+  curl -L -o /tmp/sbt.zip \
+    https://dl.bintray.com/sbt/native-packages/sbt/${SBT_VERSION}/sbt-${SBT_VERSION}.zip && \
+  openssl dgst -sha256 /tmp/sbt.zip \
+    | grep ${CHECKSUM} \
+    || (echo 'shasum mismatch' && false) && \
+  mkdir -p /opt/sbt && \
+  unzip /tmp/sbt.zip -d /opt/sbt && \
+  rm /tmp/sbt.zip && \
+  chmod +x /opt/sbt/sbt/bin/sbt && \
+  ln -s /opt/sbt/sbt/bin/sbt /usr/bin/sbt && \
+  rm -rf /tmp/* /var/cache/apk/*
 
 # Copy Ore
 RUN mkdir -p /home/play/ore/
@@ -17,10 +24,8 @@ WORKDIR /home/play/ore/
 ADD . /home/play/ore/
 
 # Ore runs on port 9000
-# 8888 is the Activator UI
 EXPOSE 9000
 
 RUN cp conf/application.conf.template conf/application.conf
 
-CMD ["activator", "run"]
-
+CMD ["sbt", "clean", "dist"]
