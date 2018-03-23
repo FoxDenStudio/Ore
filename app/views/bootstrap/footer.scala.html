@@ -1,49 +1,49 @@
 @()(implicit messages: Messages)
 
-<footer class="footer">
-    <div class="above">
+<div id="footer">
+    <div class="footer-row terms">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
-                    By using this site you're accepting our <a class="tos" href="https://docs.spongepowered.org/stable/en/about/tos.html">@messages("general.terms")</a>
+                <div class="col">
+                    <div>By using this site you're accepting our <a class="tos" href="#">Terms of Service</a></div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="middle">
+    <div class="footer-row info">
         <div class="container">
             <div class="row">
-                <div class="col-sm-2 col-xs-12">
+                <div class="col-md-2">
                     <h5>Ore API</h5>
-                    <a class="btn dark" href="https://docs.spongepowered.org/stable/en/ore/api.html">@messages("general.api")</a>
+                    <a class="btn sponge-dark" href="https://docs.spongepowered.org/stable/en/ore/api.html">API</a>
                 </div>
-                <div class="col-sm-2 col-xs-12">
+                <div class="col-md-2">
                     <h5>Help Needed?</h5>
-                    <a class="btn dark" href="https://forums.spongepowered.org/c/plugins/ore-support">@messages("general.contact")</a>
+                    <a class="btn sponge-dark" href="https://forums.spongepowered.org/c/plugins/ore-support">Forums</a>
                 </div>
-                <div class="col-sm-4 col-xs-12">
+                <div class="col-md-4">
                     <a href="https://www.spongepowered.org">
-                        <img class="spongie" src="@routes.Assets.at("images/spongie-mark.svg")" />
+                        <img class="spongie" src="/assets/images/icons/spongie-mark.svg"/>
                     </a>
                 </div>
-                <div class="col-sm-2 col-xs-12">
+                <div class="col-md-2">
                     <h5>Found an Issue?</h5>
-                    <a class="btn dark" target="_blank" href="https://github.com/SpongePowered/Ore/issues"> @messages("general.issues")</a>
+                    <a class="btn sponge-dark" target="_blank" href="https://github.com/SpongePowered/Ore/issues">Issues</a>
                 </div>
-                <div class="col-sm-2 col-xs-12">
+                <div class="col-md-2">
                     <h5>Our Sponsors</h5>
-                    <a class="btn dark" href="https://www.spongepowered.org/sponsors">@messages("general.sponsors")</a>
+                    <a class="btn sponge-dark" href="https://www.spongepowered.org/sponsors">Sponsors</a>
                 </div>
             </div>
         </div>
     </div>
-    <div class="below">
+    <div class="footer-row copyright">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; @messages("general.organization") 2016-2018</p>
+                <div class="col">
+                    <p>Copyright &copy; SpongePowered 2014 - 2018</p>
                 </div>
             </div>
         </div>
     </div>
-</footer>
+</div>

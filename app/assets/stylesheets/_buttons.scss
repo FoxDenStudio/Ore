@@ -1,0 +1,38 @@
+@import "variables";
+
+$btn-border-radius: 0;
+
+$btn-yellow-background: $sponge_yellow;
+$btn-yellow-border: darken($sponge_yellow, 7);
+$btn-yellow-color: $sponge_yellow_text;
+
+$btn-dark-background: $sponge_grey_dark;
+$btn-dark-border: $sponge_grey_light;
+$btn-dark-color: #ffffff;
+
+@mixin button-variant($variant, $background, $border-color, $color) {
+  .btn.#{$variant} {
+    background: $background;
+    border-color: $border-color;
+    color: $color;
+    font-weight: normal;
+
+    &:hover, &:focus {
+      background: darken($background, 3);
+      color: $color;
+    }
+  }
+}
+
+.btn {
+  border-radius: $btn-border-radius;
+  border: 1px solid;
+  font-weight: 600;
+
+  &:hover, &:focus {
+    box-shadow: none;
+  }
+}
+
+@include button-variant("sponge-yellow", $btn-yellow-background, $btn-yellow-border, $btn-yellow-color);
+@include button-variant("sponge-dark", $btn-dark-background, $btn-dark-border, $btn-dark-color);

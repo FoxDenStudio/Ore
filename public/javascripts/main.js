@@ -106,8 +106,6 @@ $(function() {
 
     initTooltips();
 
-    $('.authors-icon').click(function() { window.location = '/authors'; });
-
     $('.btn-spinner').click(function() {
         var iconClass = $(this).data('icon');
         $(this).find('.' + iconClass).removeClass(iconClass).addClass('fa-spinner fa-spin');
@@ -180,7 +178,11 @@ $(function() {
     });
 });
 
-// Fix page anchors which were broken by the fixed top navigation
+/*
+ * ==================================================
+ * =                  Anchor Fix                    =
+ * ==================================================
+ */
 
 var scrollToAnchor = function (anchor) {
     if (anchor) {
@@ -198,14 +200,110 @@ var scrollToAnchor = function (anchor) {
     return true;
 };
 
-$(window).load(function () {
-    return scrollToAnchor(window.location.hash);
-});
+if(window.location.hash) {
+    $(window).load(function () {
+        return scrollToAnchor(window.location.hash);
+    });
+}
 
 $("a[href^='#']").click(function () {
     window.location.replace(window.location.toString().split("#")[0] + $(this).attr("href"));
 
     return scrollToAnchor(this.hash);
+});
+
+/*
+ * ==================================================
+ * =                    Navbar                      =
+ * ==================================================
+ */
+
+$(function() {
+    window.mobile = window.innerWidth <= 768;
+
+    window.addEventListener("resize", function () {
+        var mobile = window.innerWidth <= 768;
+
+        if(mobile !== window.mobile) {
+            if(mobile === false) {
+                spongeNavigation.hide();
+                subNavigation.show();
+
+                bindHoverEvents();
+            } else {
+                subNavigation.hide();
+
+                spongeNavigationToggler.unbind("mouseenter.nav");
+                spongeNavigation.unbind("mouseleave.nav");
+                spongeNavigationToggler.unbind("mouseleave.nav");
+            }
+        }
+
+        window.mobile = mobile;
+    });
+
+    //==> Elements
+
+    const spongeNavigationToggler = $(".navbar-toggler.sponge-menu");
+    const spongeNavigation = $("#sponge-menu").find(".navbar-nav");
+    const subNavigationToggler = $(".navbar-toggler.sub-menu");
+    const subNavigation = $("#sub-menu").find(".navbar-nav");
+
+    //==> Utility Methods
+
+    var hideSpongeNavigation = function () {
+        spongeNavigation.hide();
+        spongeNavigationToggler.removeClass("focus");
+    };
+    var showSpongeNavigation = function () {
+        if(subNavigation.is(":visible")) {
+            hideSubNavigation();
+        }
+        spongeNavigation.show();
+        spongeNavigationToggler.addClass("focus");
+    };
+    var hideSubNavigation = function () {
+        if(window.mobile) {
+            subNavigation.hide();
+            subNavigationToggler.removeClass("focus");
+        }
+    };
+    var showSubNavigation = function () {
+        if(spongeNavigation.is(":visible")) {
+            hideSpongeNavigation();
+        }
+        subNavigation.show();
+        subNavigationToggler.addClass("focus");
+    };
+    var bindHoverEvents = function () {
+        spongeNavigationToggler.bind("mouseenter.nav", showSpongeNavigation);
+        spongeNavigation.bind("mouseleave.nav", hideSpongeNavigation);
+        spongeNavigationToggler.bind("mouseleave.nav", function (event) {
+            if (!event.relatedTarget || (event.relatedTarget && !event.relatedTarget.classList.contains("navbar-nav") && !event.relatedTarget.classList.contains("nav-link"))) {
+                hideSpongeNavigation();
+            }
+        });
+    };
+
+    //==> Events
+
+    spongeNavigationToggler.click(function () {
+        if(spongeNavigation.is(":visible")) {
+            hideSpongeNavigation();
+        } else {
+            showSpongeNavigation();
+        }
+    });
+
+    subNavigationToggler.click(function () {
+        if(subNavigation.is(":visible")) {
+            hideSubNavigation();
+        } else {
+            showSubNavigation();
+        }
+    });
+
+    if(!window.mobile) bindHoverEvents();
 });
 
 /*

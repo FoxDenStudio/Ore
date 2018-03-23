@@ -1,0 +1,18 @@
+// Yellow tones
+$sponge_yellow: #f7cf0d;
+$sponge_yellow_dark: #917300;
+$sponge_yellow_text: darken($sponge_yellow, 30);
+
+// Grey tones
+$sponge_grey_accents: #ddd;
+$sponge_grey_lighter: #5a5a5a;
+$sponge_grey_light: #3e3e3e;
+$sponge_grey: #333333;
+$sponge_grey_dark: #2b2b2b;
+
+// Sponge Headline
+$sponge_headline_font: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+$sponge_headline_weight: 700;
+
+// Navigation -> Needs to be accessed in depending projects
+$sponge_navigation_height: 4.063rem;

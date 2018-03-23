@@ -1,80 +1,82 @@
-@import "sponge_variables";
-@import 'pallette';
-@import 'utils';
+@import "variables";
 
-.footer {
-  display: block;
-  width: 100%;
-  margin-top: 2em;
+$footer-font-color: #ffffff;
+$footer-font-size: 0.875rem;
+$footer-row-padding: 1rem 0;
+$footer-row-terms-padding: 0.35rem;
+
+#footer {
   text-align: center;
+  color: $footer-font-color;
+  font-size: $footer-font-size;
 
-  h5, p , a, a:hover {
-    color: #ffffff;
-  }
+  .footer-row {
+    padding: $footer-row-padding;
 
-  h5 {
-    font-size: 1.3em;
-    font-weight: bold;
-  }
-
-  .above {
-    background: $sponge_light_gray;
-    padding: 10px 0;
-    color: #e5e5e5;
-
-    a.tos {
-      color: #e5e5e5;
-      font-size: 1em;
-      padding: 0;
-      text-decoration: underline;
+    p {
+      margin: 0;
     }
-  }
 
-  .middle {
-    background: $sponge_grey;
-    padding: 1.5em;
+    [class*="col-"] {
+      align-self: center;
+    }
 
-    img.spongie {
-      height: 60px;
-      width: 60px;
+    &.copyright {
+      background: $sponge_grey_dark;
+    }
 
-      @media (min-width: 768px) {
-        height: 74px;
-        width: 74px;
+    &.terms {
+      padding: $footer-row-terms-padding;
+      background: $sponge_grey_light;
 
-        &:hover {
-          animation-name: bounce;
-          animation-duration: .5s;
-          animation-fill-mode: both;
-          animation-iteration-count: infinite;
-        }
+      a {
+        color: #e5e5e5;
+        font-size: 1em;
+        padding: 0;
+        text-decoration: underline;
+      }
+    }
 
-        @-webkit-keyframes bounce {
-          0%, 100% {
-            transform: rotateZ(0);
+    &.info {
+      background: $sponge_grey;
+
+      img.spongie {
+        height: 60px;
+        width: 60px;
+
+        @media (min-width: 768px) {
+          height: 74px;
+          width: 74px;
+
+          &:hover {
+            animation-name: bounce;
+            animation-duration: .5s;
+            animation-fill-mode: both;
+            animation-iteration-count: infinite;
           }
-          33% {
-            transform: rotateZ(-5deg);
-          }
-          50% {
-            transform: rotateZ(0);
-          }
-          76% {
-            transform: rotateZ(5deg);
+
+          @-webkit-keyframes bounce {
+            0%, 100% {
+              transform: rotateZ(0);
+            }
+            33% {
+              transform: rotateZ(-5deg);
+            }
+            50% {
+              transform: rotateZ(0);
+            }
+            76% {
+              transform: rotateZ(5deg);
+            }
           }
         }
       }
     }
   }
 
-  .below {
-    background: $sponge_dark_grey;
-    padding: 1em;
-    font-size: 1em;
-
-    p {
-      margin: 0;
-    }
+  h5 {
+    font-size: 1.3em;
+    font-weight: bold;
   }
 
   @media (max-width: 768px) {
@@ -86,5 +88,4 @@
       margin-top: 0;
     }
   }
-
 }

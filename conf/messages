@@ -261,6 +261,7 @@ channel.nameRequirements        =   Name must be: unique, alphanumerical, no spa
 
 aria.dropdown.menu              =   dropdownMenu{0}
 
+user.profile                =   Profile
 user.tagline                =   Tagline
 user.tagline.info           =   Add a short tagline to let people know what you're about!
 user.tagline.edit           =   Edit tagline
@@ -277,7 +278,7 @@ user.flags.markResolved     =   Mark resolved
 user.flags.markAllResolved  =   Mark all resolved
 user.flags.messageUser      =   Message user
 user.flags.messageOwner     =   Message project owner
-user.queue                  =   Version approvals
+user.queue                  =   Version Approvals
 user.queue.none             =   There are no versions to review.
 user.queue.approve          =   Approve
 user.queue.open             =   Approval queue

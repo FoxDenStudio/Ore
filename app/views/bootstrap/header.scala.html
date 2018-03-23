@@ -5,195 +5,172 @@ The main header displayed on each layout.
 @import controllers.sugar.Requests.OreRequest
 @import ore.OreConfig
 @import ore.permission._
+
 @(user: Boolean = true)(implicit messages: Messages, request: OreRequest[_], config: OreConfig)
 
-
-@tooltip(title: String) = @{
-    Html("data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"" + title + "\"")
-}
-
-<nav id="topbar" class="navbar-main navbar-inverse">
+<nav class="navbar fixed-top navbar-expand-md">
     <div class="container">
-        <!-- Left navbar -->
-        <div id="sp-logo-container">
-            <a class="logo" href="@routes.Application.showHome(None, None, None, None, None)">
-                <img src="@config.sponge.get[String]("logo")">
-                <span>@messages("general.projectName")</span>
-                <i class="fa fa-fw fa-chevron-down"></i>
-            </a>
-            <div id="sp-logo-menu">
-                <ul id="sp-logo-dropdown">
-                    <li><a href="https://www.spongepowered.org">
-                        <i class="fa-fw fa fa-home"></i>@messages("general.home")
-                    </a></li>
-                    <li><a href="https://forums.spongepowered.org">
-                        <i class="fa-fw fa fa-comments"></i>@messages("general.forums")
-                    </a></li>
-                    <li><a href="https://github.com/SpongePowered">
-                        <i class="fa-fw fa fa-code"></i>@messages("general.code")
-                    </a></li>
-                    <li><a href="https://docs.spongepowered.org">
-                        <i class="fa-fw fa fa-book"></i>@messages("general.docs")
-                    </a></li>
-                    <li><a href="https://jd.spongepowered.org">
-                        <i class="fa-fw fa fa-graduation-cap"></i>@messages("general.javadocs")
-                    </a></li>
-                    <li class="active"><a href="@routes.Application.showHome(None, None, None, None, None)">
-                        <i class="fa-fw fa fa-plug"></i>@messages("general.plugins")
-                    </a></li>
-                    <li><a href="https://www.spongepowered.org/downloads">
-                        <i class="fa-fw fa fa-download"></i>@messages("general.getsponge")
-                    </a></li>
-                    <li><a href="https://www.spongepowered.org/chat">
-                        <i class="fa-fw fa fa-comment"></i>@messages("general.irc")
-                    </a></li>
-                </ul>
+        <div class="navbar-toggler sponge-menu">
+            <div tabindex="1" class="navbar-brand">
+                <div class="logo"></div>
+                <span class="sponge-headline">Sponge</span>
+                <i class="fas fa-chevron-down fa-fw"></i>
+            </div>
+        </div>
+        <div class="collapse navbar-collapse show" id="sponge-menu">
+            <div class="navbar-nav sponge-dark">
+                <div class="nav-item">
+                    <a class="nav-link" href="https://www.spongepowered.org">
+                        <i class="fas fa-home fa-fw"></i>
+                        <span>Homepage</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" href="https://forums.spongepowered.org">
+                        <i class="fab fa-discourse fa-fw"></i>
+                        <span>Forums</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" href="https://github.com/SpongePowered">
+                        <i class="fas fa-code fa-fw"></i>
+                        <span>Code</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" href="https://docs.spongepowered.org">
+                        <i class="fas fa-book fa-fw"></i>
+                        <span>Docs</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" href="https://jd.spongepowered.org">
+                        <i class="fas fa-graduation-cap fa-fw"></i>
+                        <span>Javadocs</span>
+                    </a>
+                </div>
+                <div class="nav-item active">
+                    <a class="nav-link active" href="https://ore.spongepowered.org">
+                        <i class="fas fa-plug fa-fw"></i>
+                        <span>Plugins</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" href="https://www.spongepowered.org/downloads">
+                        <i class="fas fa-download fa-fw"></i>
+                        <span>Downloads</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" href="https://www.spongepowered.org/chat">
+                        <i class="fas fa-comments fa-fw"></i>
+                        <span>Chat</span>
+                    </a>
+                </div>
             </div>
         </div>
 
-        <!-- Right navbar -->
-        @if(user) {
-            <ul class="nav navbar-nav navbar-collapse collapse navbar-right">
-                @request.data.currentUser.map { cu =>
-
-                <li class="dropdown nav-icon new-controls">
-                    <a href="#" class="drop-down-toggle" data-toggle="dropdown">
-                        <i class="icon fa fa-plus"></i>
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="user-dropdown dropdown-menu" aria-label="Create new&hellip;">
-                        <li>
-                            <a href="@projectRoutes.Projects.showCreator()">
-                                <span class="pull-left">@messages("project.create")</span>
-                                <i class="pull-right fa fa-book"></i>
+        <div class="navbar-toggler sub-menu">
+            <i class="fas fa-bars fa-fw toggler-icon-size"></i>
+        </div>
+        <div class="collapse navbar-collapse show" id="sub-menu">
+            <div class="navbar-nav ml-auto sponge-dark">
+                @if(user) {
+                    @request.data.currentUser.map { user =>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="newDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-plus fa-2x"></i>
                             </a>
-                            <a href="@routes.Organizations.showCreator()">
-                                <span class="pull-left">@messages("org.create")</span>
-                                <i class="pull-right fa fa-users"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="nav-icon authors-icon" @tooltip(messages("project.viewAuthors"))>
-                    <i class="icon fa fa-users"></i>
-                </li>
-
-                    @* Show user controls *@
-                <li class="dropdown user-controls nav-icon">
-                    <a href="#" class="drop-down-toggle user-toggle" data-toggle="dropdown">
-                        @if(request.data.hasNotice) {
-                            <span class="unread"></span>
-                        }
-                        <img height="32" width="32" class="user-avatar" src="@cu.avatarUrl.getOrElse(routes.Assets.at("images/spongie-mark.svg"))" />
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="user-dropdown dropdown-menu" aria-label="@messages("aria.dropdown.menu", 1)">
-                        <li>
-                            <a href="@routes.Users.showProjects(cu.username, None)">
-                                <span class="pull-left">@cu.username</span>
-                                <i class="pull-right fa fa-user"></i>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="@routes.Users.showNotifications(None, None)">
-                                <span class="pull-left">
-                                    @messages("notification.plural")
-                                    @if(request.data.hasUnreadNotifications) {
-                                        <span class="unread"></span>
-                                    }
-                                </span>
-                                <i class="pull-right fa fa-bell"></i>
-                            </a>
-                        </li>
-
-                        @if(request.data.globalPerm(ReviewFlags)) {
-                            <li>
-                                <a href="@routes.Application.showFlags()">
-                                    <span class="flags pull-left">
-                                        @messages("project.flag.plural")
-                                        @if(request.data.unresolvedFlags) {
-                                            <span class="unread"></span>
-                                        }
-                                    </span>
-                                    <i class="pull-right fa fa-flag"></i>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="newDropdown">
+                                <a class="dropdown-item" href="@projectRoutes.Projects.showCreator()">
+                                    <i class="fas fa-book fa-fw"></i>
+                                    @messages("project.create")
                                 </a>
-                            </li>
-                        }
-
-                        @if(request.data.globalPerm(ReviewVisibility)) {
-                            <li>
-                                <a href="@routes.Application.showProjectVisibility()">
-                                    <span class="flags pull-left">
-                                        Project approvals
-                                        @if(request.data.hasProjectApprovals) {
-                                            <span class="unread"></span>
-                                        }
-                                    </span>
-                                    <i class="pull-right fa fa-thumbs-up"></i>
+                                <a class="dropdown-item" href="@routes.Organizations.showCreator()">
+                                    <i class="fas fa-users fa-fw"></i>
+                                    @messages("org.create")
                                 </a>
-                            </li>
-                        }
-
-                        @if(request.data.globalPerm(ReviewProjects)) {
-                            <li>
-                                <a href="@routes.Application.showQueue()">
-                                    <span class="pull-left">
-                                        @messages("user.queue")
-                                        @if(request.data.hasReviewQueue) {
-                                            <span class="unread"></span>
-                                        }
-                                    </span>
-                                    <i class="pull-right fa fa-thumbs-up"></i>
-                                </a>
-                            </li>
-                        }
-
-                        @if(request.data.globalPerm(ViewStats)) {
-                            <li>
-                                <a href="@routes.Application.showStats()">
-                                    <span class="pull-left">
-                                        @messages("user.stats")
-                                    </span>
-                                    <i class="pull-right fa fa-area-chart"></i>
-                                </a>
-                            </li>
-                        }
-
-                        @if(request.data.globalPerm(ViewHealth)) {
-                            <li>
-                                <a href="@routes.Application.showHealth()">
-                                    <span class="pull-left">
-                                    @messages("admin.health.title")
-                                    </span>
-                                    <i class="pull-right fa fa-heartbeat"></i>
-                                </a>
-                            </li>
-                        }
-
-
-                        <li role="separator" class="divider"></li>
-                        <li>
-                            <a href="@routes.Users.logOut(Some(request.path))">
-                                <span class="pull-left">@messages("general.signout")</span>
-                                <i class="pull-right fa fa-sign-out"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                }.getOrElse {
-                    <li>
-                        <div class="btn-group-login">
-                            <a href="@routes.Users.signUp()"
-                            class="btn btn-primary navbar-btn">@messages("general.signup")</a>
-                            <a href="@routes.Users.logIn(None, None, Some(request.path))"
-                            class="btn btn-primary navbar-btn">@messages("general.login")</a>
+                            </div>
                         </div>
-                    </li>
-                }
+                        <div class="nav-item">
+                            <a class="nav-link" href="@routes.Users.showAuthors(None, None)">
+                                <i class="fas fa-users fa-2x"></i>
+                            </a>
+                        </div>
+                        @if(request.data.globalPerm(ReviewVisibility) || request.data.globalPerm(ReviewProjects) || request.data.globalPerm(ViewStats) || request.data.globalPerm(ViewHealth)) {
+                            <div class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-chess-rook fa-2x fa-fw"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="adminDropdown">
+                                    @if(request.data.globalPerm(ReviewFlags)) {
+                                        <a class="dropdown-item" href="@routes.Application.showFlags()">
+                                            <i class="fas fa-flag fa-fw"></i>
+                                            @messages("project.flag.plural")
+                                        </a>
+                                    }
+                                    @if(request.data.globalPerm(ReviewVisibility)) {
+                                        <a class="dropdown-item" href="@routes.Application.showProjectVisibility()">
+                                            <i class="fas fa-check-square fa-fw"></i>
+                                            Project Approvals
+                                        </a>
+                                    }
+                                    @if(request.data.globalPerm(ReviewProjects)) {
+                                        <a class="dropdown-item" href="@routes.Application.showQueue()">
+                                            <i class="fas fa-check-circle fa-fw"></i>
+                                            @messages("user.queue")
+                                        </a>
+                                    }
+                                    @if(request.data.globalPerm(ViewStats)) {
+                                        <a class="dropdown-item" href="@routes.Application.showStats()">
+                                            <i class="fas fa-chart-line fa-fw"></i>
+                                            @messages("user.stats")
+                                        </a>
+                                    }
+                                    @if(request.data.globalPerm(ViewHealth)) {
+                                        <a class="dropdown-item" href="@routes.Application.showHealth()">
+                                            <i class="fas fa-heartbeat fa-fw"></i>
+                                            @messages("admin.health.title")
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                        }
 
-            </ul>
-        }
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img height="32" width="32" class="user-avatar" src="@user.avatarUrl.getOrElse(routes.Assets.at("images/spongie-mark.svg"))" />
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="@routes.Users.showProjects(user.username, None)">
+                                    <i class="fa fa-user-circle fa-fw"></i>
+                                    @messages("user.profile")
+                                </a>
+                                <a class="dropdown-item" href="@routes.Users.showNotifications(None, None)">
+                                    <i class="fas fa-bell fa-fw"></i>
+                                    @messages("notification.plural")
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="@routes.Users.logOut(Some(request.path))">
+                                    <i class="fa fa-sign-out-alt fa-fw"></i>
+                                    @messages("general.signout")
+                                </a>
+                            </div>
+                        </div>
+                    }.getOrElse {
+                        <div class="nav-item">
+                            <a class="nav-link" href="@routes.Users.logIn(None, None, Some(request.path))">
+                                <div class="btn sponge-yellow">@messages("general.login")</div>
+                            </a>
+                        </div>
+                        <div class="nav-item">
+                            <a class="nav-link" href="@routes.Users.signUp()">
+                                <div class="btn sponge-yellow">@messages("general.signup")</div>
+                            </a>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
     </div>
 </nav>
