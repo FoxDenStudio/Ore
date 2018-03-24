@@ -219,37 +219,46 @@ $("a[href^='#']").click(function () {
  */
 
 $(function() {
+    //====================================> General
+
+    // Sets the mobile variable
     window.mobile = window.innerWidth <= 768;
 
+    // Adds the resize listener to fix dynamic switch from mobile to desktop and reverse
     window.addEventListener("resize", function () {
         var mobile = window.innerWidth <= 768;
 
+        // If mobile state changed
         if(mobile !== window.mobile) {
             if(mobile === false) {
                 spongeNavigation.hide();
                 subNavigation.show();
 
                 bindHoverEvents();
+                setSpongeNavigationWidth();
             } else {
                 subNavigation.hide();
 
                 spongeNavigationToggler.unbind("mouseenter.nav");
                 spongeNavigation.unbind("mouseleave.nav");
                 spongeNavigationToggler.unbind("mouseleave.nav");
+
+                spongeNavigation.css("width", "100vw");
             }
         }
 
+        // Sets the mobile variable to the new value
         window.mobile = mobile;
     });
 
-    //==> Elements
+    //====================================> Elements
 
     const spongeNavigationToggler = $(".navbar-toggler.sponge-menu");
     const spongeNavigation = $("#sponge-menu").find(".navbar-nav");
     const subNavigationToggler = $(".navbar-toggler.sub-menu");
     const subNavigation = $("#sub-menu").find(".navbar-nav");
 
-    //==> Utility Methods
+    //====================================> Utility Methods
 
     var hideSpongeNavigation = function () {
         spongeNavigation.hide();
@@ -284,9 +293,13 @@ $(function() {
             }
         });
     };
+    var setSpongeNavigationWidth = function () {
+        spongeNavigation.css("width", $(".navbar .navbar-brand").outerWidth());
+    };
 
-    //==> Events
+    //====================================> Events
 
+    // Adds click events for both triggers
     spongeNavigationToggler.click(function () {
         if(spongeNavigation.is(":visible")) {
             hideSpongeNavigation();
@@ -294,7 +307,6 @@ $(function() {
             showSpongeNavigation();
         }
     });
-
     subNavigationToggler.click(function () {
         if(subNavigation.is(":visible")) {
             hideSubNavigation();
@@ -303,7 +315,16 @@ $(function() {
         }
     });
 
-    if(!window.mobile) bindHoverEvents();
+    // Binds hover events if not mobile
+    if(!window.mobile) {
+        bindHoverEvents();
+        setSpongeNavigationWidth();
+    }
+
+    //====================================> Styling
+
+    // Overwrites default dropdown width with rendered width of the brand container
+
 });
 
 /*

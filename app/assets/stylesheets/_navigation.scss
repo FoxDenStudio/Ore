@@ -1,36 +1,15 @@
 @import "variables";
 
-$nav-padding: 1.5rem;
-$nav-logo-size: 2.813rem;
-$nav-brand-width: 14.25rem; // manually define this to calculate the width of the dropdown
-$nav-brand-font-size: 1.438rem;
-$nav-brand-padding: 0 ($nav-padding - 0.5rem) 0 $nav-padding;
-$nav-brand-margin: 0;
+// This is a standard value which is overwritten by javascript normally
+$nav-brand-width: 14.25rem;
+
 //noinspection CssUnknownTarget
-$nav-logo: url(../images/icons/spongie-mark.svg);
-$nav-logo-padding: 0 0.5rem;
-$nav-toggle-button-padding: 0 1.5rem;
+$nav-brand-logo: url(../images/icons/spongie-mark.svg);
+$nav-brand-logo-size: 2.813rem;
+
 $nav-indicator-color: #808080;
-
 $nav-link-color: #f3f3f3;
-$nav-link-font-size: 1.2rem;
-$nav-link-padding: 0.75rem 1.5rem;
-$nav-link-svg-margin: 0.8rem;
-
-$nav-desktop-sub-menu-item-margin-right: 1rem;
-$nav-desktop-sub-menu-link-font-size: 1rem;
-$nav-desktop-sub-menu-item-padding: 0.75rem;
-
-$nav-mobile-border: 7px solid $sponge_grey_dark;
-$nav-mobile-padding: 0.5rem 0;
-$nav-mobile-sponge-menu-padding: 0.5rem 0;
-$nav-mobile-sponge-menu-link-padding: 0.45rem 0.75 + ($nav-logo-size / 2);
-$nav-mobile-sponge-menu-link-font-size: 1.2rem;
-
-// Disables opening animation
-.collapsing {
-  transition: none;
-}
+$nav-dropdown-border: 7px solid $sponge_grey_dark;
 
 .navbar {
   background: $sponge_grey;
@@ -39,39 +18,38 @@ $nav-mobile-sponge-menu-link-font-size: 1.2rem;
 
   .container {
     max-height: $sponge_navigation_height;
+  }
 
-    @media (max-width: 768px) {
-      margin: 0;
-    }
+  // Remove collapsing animations
+  .collapsing {
+    transition: none;
   }
 
   .navbar-brand {
     display: flex;
     align-items: center;
     min-height: $sponge_navigation_height;
-    padding: $nav-brand-padding;
-    margin: $nav-brand-margin;
+    padding: 0 1rem 0 1.5rem;
+    margin: 0;
 
     &, * {
       user-select: none;
     }
 
     .logo {
-      height: $nav-logo-size;
-      width: $nav-logo-size;
-      background: $nav-logo;
+      height: $nav-brand-logo-size;
+      width: $nav-brand-logo-size;
+      background: $nav-brand-logo;
     }
 
     .sponge-headline {
-      height: $nav-logo-size;
+      height: $nav-brand-logo-size;
       display: flex;
       align-items: center;
     }
 
     span {
-      font-size: $nav-brand-font-size;
-      color: $sponge_yellow;
-      margin: $nav-logo-padding;
+      margin: 0 0.5rem;
     }
 
     svg {
@@ -88,8 +66,8 @@ $nav-mobile-sponge-menu-link-font-size: 1.2rem;
     .nav-item {
       .nav-link {
         color: $nav-link-color;
-        font-size: $nav-link-font-size;
-        padding: $nav-link-padding;
+        font-size: 1.2rem;
+        padding: 0.75rem 1.5rem;
 
         &.active, &.active:hover {
           color: $nav-link-color;
@@ -105,37 +83,46 @@ $nav-mobile-sponge-menu-link-font-size: 1.2rem;
     }
 
     @media (max-width: 768px) {
-      border-bottom: $nav-mobile-border;
-      border-top: $nav-mobile-border;
-      padding: $nav-mobile-padding;
+      border-bottom: $nav-dropdown-border;
+      border-top: $nav-dropdown-border;
+      padding: 0.5rem 0;
       width: 100vw;
       background: $sponge_grey_light;
     }
   }
 
-  #sponge-menu .navbar-nav.sponge-dark {
-    display: none;
+  #sponge-menu {
+    .navbar-nav.sponge-dark {
+      display: none;
 
-    @media (min-width: 768px) {
-      flex-direction: column;
-      width: $nav-brand-width;
-      background: $sponge_grey_light;
-      padding: $nav-mobile-sponge-menu-padding;
-      border-bottom: $nav-mobile-border;
-      border-top-color: $sponge_grey_light;
-      border-bottom: $nav-mobile-border;
+      @media (min-width: 768px) {
+        flex-direction: column;
+        width: $nav-brand-width;
+        background: $sponge_grey_light;
+        padding: 0.5rem 0;
+        border-bottom: $nav-dropdown-border;
+        border-top-color: $sponge_grey_light;
+        border-bottom: $nav-dropdown-border;
 
-      .nav-item {
-        .nav-link {
-          padding: $nav-mobile-sponge-menu-link-padding;
-          font-size: $nav-mobile-sponge-menu-link-font-size;
+        .nav-item {
+          .nav-link {
+            padding: 0.45rem 0.75 + ($nav-brand-logo-size / 2);
+            font-size: 1.2rem;
+          }
         }
+      }
+
+      @media (min-width: 768px) {
+        position: absolute;
+        top: $sponge_navigation_height;
       }
     }
 
     @media (min-width: 768px) {
-      position: absolute;
-      top: $sponge_navigation_height;
+      &.navbar-collapse {
+        position: absolute;
+        top: 0;
+      }
     }
   }
 
@@ -152,11 +139,15 @@ $nav-mobile-sponge-menu-link-font-size: 1.2rem;
         min-height: $sponge_navigation_height;
 
         .nav-link {
-          font-size: $nav-desktop-sub-menu-link-font-size;
-          padding: $nav-desktop-sub-menu-item-padding;
+          font-size: 1rem;
+          padding: 0.75rem;
           min-height: $sponge_navigation_height;
           display: inline-flex;
           align-items: center;
+
+          &:hover, &:focus {
+            background: $sponge_grey_dark;
+          }
         }
 
         &.dropdown {
@@ -168,7 +159,7 @@ $nav-mobile-sponge-menu-link-font-size: 1.2rem;
             margin: 0;
             background: $sponge_grey_light;
             border-radius: 0;
-            border-bottom: $nav-mobile-border;
+            border-bottom: $nav-dropdown-border;
 
             .dropdown-divider {
               border-color: $sponge_grey_lighter;
@@ -224,7 +215,7 @@ $nav-mobile-sponge-menu-link-font-size: 1.2rem;
       align-items: center;
       height: 100%;
 
-      padding: $nav-toggle-button-padding;
+      padding: 0 1.5rem;
       border: none;
       font-size: 1.75rem;
     }
