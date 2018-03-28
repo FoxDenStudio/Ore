@@ -12,10 +12,10 @@ sorted according to different criteria.
 @import ore.project.{Categories, ProjectSortingStrategies}
 @import play.api.Configuration
 @import security.NonceFilter._
-@import util.WSUtils.appendUri
 
 @import scala.util.Random
 
+@import io.lemonlabs.uri.Url
 @(models: Seq[(Project, User, Version, Seq[Tag])], visibleCategories: Option[Seq[Category]], query: Option[String], page: Int,
         sort: ProjectSortingStrategy, platform: Option[Platform])(implicit messages: Messages, flash: Flash,
         request: OreRequest[_], config: OreConfig)
@@ -38,10 +38,12 @@ sorted according to different criteria.
 }
 
 @categoryLink(category: Category) = @{
+    val url = Url.parse(if(request.secure) "https://" else "http://" + request.host + request.uri)
+
     if(visibleCategories.contains(category)) {
-        "test"
+        ""
     } else {
-        appendUri(request.uri, category.id.toString).toString
+        url.replaceParams("categories", if(categoryString.isDefined) categoryString.get + "," else "" + category.id.toString).toString
     }
 }
 
@@ -102,7 +104,7 @@ sorted according to different criteria.
                 </div>
                 <div class="list-group ">
                     @for(category <- Categories.visible) {
-                        <a href="@categoryLink(category)" class="list-group-item list-group-item-action">
+                        <a href="#" class="list-group-item list-group-item-action">
                             <i class="@category.icon fa-fw"></i>
                             <span>@category.title</span>
                         </a>

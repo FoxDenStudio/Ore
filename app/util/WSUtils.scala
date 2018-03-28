@@ -1,7 +1,5 @@
 package util
 
-import java.net.{URI, URISyntaxException}
-
 import play.api.Logger
 import play.api.libs.json.JsValue
 import play.api.libs.ws.WSResponse
@@ -21,20 +19,6 @@ object WSUtils {
         log.info("Response: " + json)
         Some(json)
     }
-  }
-
-  @throws(classOf[URISyntaxException])
-  def appendUri(uri: String, appendQuery: String) : URI = {
-    val oldUri = new URI(uri)
-    var newQuery = oldUri.getQuery
-
-    if (newQuery == null) {
-      newQuery = appendQuery
-    } else {
-      newQuery += "&" + appendQuery
-    }
-
-    new URI(oldUri.getScheme, oldUri.getAuthority, oldUri.getPath, newQuery, oldUri.getFragment)
   }
 
 }

@@ -2,8 +2,8 @@ package controllers
 
 import java.sql.Timestamp
 import java.time.Instant
-import javax.inject.Inject
 
+import javax.inject.Inject
 import controllers.sugar.Bakery
 import controllers.sugar.Requests.AuthRequest
 import db.access.ModelAccess
