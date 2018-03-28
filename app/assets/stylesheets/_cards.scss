@@ -1,0 +1,11 @@
+@import "variables";
+
+.card {
+  border-radius: 0;
+
+  > .card-header {
+    border-radius: 0;
+    color: white;
+    background: $sponge_grey;
+  }
+}

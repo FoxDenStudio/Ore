@@ -10,6 +10,8 @@ $nav-brand-logo-size: 2.813rem;
 $nav-indicator-color: #808080;
 $nav-link-color: #f3f3f3;
 $nav-dropdown-border: 7px solid $sponge_grey_dark;
+$nav-mobile-dropdown-background: #474747;
+$nav-mobile-dropdown-hover: #424242;
 
 .navbar {
   background: $sponge_grey;
@@ -18,6 +20,10 @@ $nav-dropdown-border: 7px solid $sponge_grey_dark;
 
   .container {
     max-height: $sponge_navigation_height;
+
+    @media (max-width: 768px) {
+      margin: 0;
+    }
   }
 
   // Remove collapsing animations
@@ -62,7 +68,7 @@ $nav-dropdown-border: 7px solid $sponge_grey_dark;
     }
   }
 
-  .navbar-nav.sponge-dark {
+  .navbar-nav {
     .nav-item {
       .nav-link {
         color: $nav-link-color;
@@ -79,20 +85,23 @@ $nav-dropdown-border: 7px solid $sponge_grey_dark;
           background: $sponge_grey;
           outline: none;
         }
+
+        svg, img {
+          margin-right: 0.5rem;
+        }
       }
     }
 
     @media (max-width: 768px) {
-      border-bottom: $nav-dropdown-border;
       border-top: $nav-dropdown-border;
-      padding: 0.5rem 0;
+      border-bottom: $nav-dropdown-border;
       width: 100vw;
       background: $sponge_grey_light;
     }
   }
 
   #sponge-menu {
-    .navbar-nav.sponge-dark {
+    .navbar-nav {
       display: none;
 
       @media (min-width: 768px) {
@@ -100,8 +109,6 @@ $nav-dropdown-border: 7px solid $sponge_grey_dark;
         width: $nav-brand-width;
         background: $sponge_grey_light;
         padding: 0.5rem 0;
-        border-bottom: $nav-dropdown-border;
-        border-top-color: $sponge_grey_light;
         border-bottom: $nav-dropdown-border;
 
         .nav-item {
@@ -126,8 +133,56 @@ $nav-dropdown-border: 7px solid $sponge_grey_dark;
     }
   }
 
-  #sub-menu .navbar-nav.sponge-dark {
+  #sub-menu .navbar-nav {
     display: none;
+
+    .nav-item {
+      .nav-link {
+        display: flex;
+        align-items: center;
+
+        @media (min-width: 768px) {
+          > svg, img {
+            margin-right: 0;
+          }
+        }
+      }
+
+      &.dropdown {
+        &.show .dropdown-toggle {
+          background: $sponge_grey;
+        }
+
+        .dropdown-menu {
+          margin: 0;
+          background: $nav-mobile-dropdown-background;
+          border-radius: 0;
+          border: none;
+          border-bottom: 4px solid $sponge_grey;
+          padding: 0.5rem 0;
+
+          .dropdown-divider {
+            border-color: $sponge_grey_lighter;
+          }
+
+          .dropdown-item {
+            color: white;
+            text-shadow: none;
+            font-size: 1.1rem;
+            padding: 0.5rem 1.5rem;
+
+            svg {
+              margin-right: 0.5rem;
+            }
+
+            &:hover, &:focus {
+              background: $nav-mobile-dropdown-hover;
+              outline: none;
+            }
+          }
+        }
+      }
+    }
 
     @media (min-width: 768px) {
       min-height: $sponge_navigation_height;
@@ -148,6 +203,15 @@ $nav-dropdown-border: 7px solid $sponge_grey_dark;
           &:hover, &:focus {
             background: $sponge_grey_dark;
           }
+
+          > svg {
+            color: $sponge_yellow;
+            font-size: 2rem;
+          }
+
+          &, * {
+            user-select: none;
+          }
         }
 
         &.dropdown {
@@ -156,22 +220,13 @@ $nav-dropdown-border: 7px solid $sponge_grey_dark;
           }
 
           .dropdown-menu {
-            margin: 0;
             background: $sponge_grey_light;
-            border-radius: 0;
             border-bottom: $nav-dropdown-border;
-
-            .dropdown-divider {
-              border-color: $sponge_grey_lighter;
-            }
+            padding: 0.5rem 0;
 
             .dropdown-item {
-              color: #ffffff;
-              text-shadow: none;
-
-              svg {
-                margin-right: 0.5rem;
-              }
+              font-size: 1rem;
+              padding: 0.25rem 1.5rem;
 
               &:hover, &:focus {
                 background: $sponge_grey;
@@ -222,19 +277,18 @@ $nav-dropdown-border: 7px solid $sponge_grey_dark;
   }
 }
 
-// ==> Specific customization for Ore
+//==> Ore
 
-#sub-menu {
+.navbar #sub-menu .navbar-nav {
   .nav-item {
-    &:hover {
-      text-shadow: white 0.1em 0.1em 0.2em
-    }
+    #userDropdown img {
+      width: 24px;
+      height: 24px;
 
-    .nav-link {
-      svg {
-        color: $sponge_yellow;
+      @media (min-width: 768px) {
+        width: 32px;
+        height: 32px;
       }
     }
   }
 }
-

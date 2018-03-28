@@ -1,6 +1,4 @@
-@import controllers.project.{routes => projectRoutes}
 @import controllers.sugar.Requests.OreRequest
-@import db.ModelService
 @import models.viewhelper.UserData
 @import ore.OreConfig
 @import ore.permission.{EditSettings, ReviewFlags, ReviewProjects, UserAdmin, ViewActivity}
@@ -9,15 +7,15 @@
 @import util.StringUtils._
 @import views.html.helper.{CSRF, form}
 @import views.html.utils.{alert, modal, prompt, userAvatar}
+
 @(u: UserData)(content: Html)(implicit messages: Messages, flash: Flash, request: OreRequest[_], config: OreConfig)
 
-@bootstrap.layout(u.user.username) {
-
+@scripts = {
     <script type="text/javascript" src="@routes.Assets.at("javascripts/userPage.js")"></script>
     <script nonce="@nonce">USERNAME = '@u.user.username';</script>
+}
 
-    <div class="container" style="margin-top: 90px">
-
+@bootstrap.layout(u.user.username, scripts) {
         @alert("error")
 
         @flash.get("pgp-updated").map { updated =>
@@ -158,8 +156,6 @@
         </div>
 
         @content
-
-    </div>
 
     <div class="modal fade" id="modal-pgp-edit" tabindex="-1" role="dialog" aria-labelledby="label-pgp">
         <div class="modal-dialog" role="document">

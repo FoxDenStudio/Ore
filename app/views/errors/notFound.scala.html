@@ -3,12 +3,8 @@
 @import ore.{OreConfig, OreEnv}
 @()(implicit messages: Messages, session: Session, requestHeader: RequestHeader, request: OreRequest[_] = null, config: OreConfig, env: OreEnv)
 
-@bootstrap.layout(messages("error.notFound.title"), user = false) {
-
-    <div class="container-error container">
-        <img src="@routes.Assets.at("images/ore-dark.png")" />
-        <h1 class="minor">@messages("error.notFound.title")</h1>
-        <h3 class="minor">@messages("error.notFound.message", requestHeader.uri)</h3>
-    </div>
-
+@bootstrap.layout(messages("error.notFound.title"), userEnabled = false) {
+    <img src="@routes.Assets.at("images/ore-dark.png")" />
+    <h1 class="minor">@messages("error.notFound.title")</h1>
+    <h3 class="minor">@messages("error.notFound.message", requestHeader.uri)</h3>
 }

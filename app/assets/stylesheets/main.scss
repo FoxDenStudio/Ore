@@ -1,7 +1,17 @@
+// Component styles
+
 @import "variables";
 @import "navigation";
 @import "footer";
 @import "buttons";
+@import "forms";
+@import "cards";
+
+// Page styles
+
+@import "pages/home";
+
+// General styles
 
 .sponge-headline {
   font-family: $sponge_headline_font;
@@ -20,4 +30,11 @@
 
 .site-content {
   flex: 1;
+  margin-top: $sponge_navigation_height + 1rem;
+}
+
+@media (min-width: 768px) {
+  .mobile-only {
+    display: none;
+  }
 }

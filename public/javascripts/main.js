@@ -232,7 +232,7 @@ $(function() {
         if(mobile !== window.mobile) {
             if(mobile === false) {
                 spongeNavigation.hide();
-                subNavigation.show();
+                subNavigation.css("display", "flex");
 
                 bindHoverEvents();
                 setSpongeNavigationWidth();

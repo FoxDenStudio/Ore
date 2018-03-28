@@ -11,11 +11,14 @@ Base template for Project overview.
 @import ore.project.FlagReasons
 @import security.NonceFilter._
 @import views.html.helper.{CSRF, form}
-@(p: ProjectData, sp: ScopedProjectData, active: String, noButtons: Boolean = false)(content: Html)(implicit messages: Messages, request: OreRequest[_], flash: Flash, config: OreConfig)
+@(p: ProjectData, sp: ScopedProjectData, active: String, noButtons: Boolean = false, additionalScripts: Html = Html(""))(content: Html)(implicit messages: Messages, request: OreRequest[_], flash: Flash, config: OreConfig)
 
-@bootstrap.layout(p.project.ownerName + " / " + p.project.name) {
-
+@scripts = {
     <script type="text/javascript" src="@routes.Assets.at("javascripts/projectDetail.js")"></script>
+    @additionalScripts
+}
+
+@bootstrap.layout(p.project.ownerName + " / " + p.project.name, scripts) {
 
     <div class="project-header-container">
         <div class="container">

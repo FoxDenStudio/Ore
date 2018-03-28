@@ -30,19 +30,20 @@ Versions page within Project overview.
     }
 }
 
-@projects.view(p, sp, "#versions") {
-
+@scripts = {
     <script type="text/javascript" src="@routes.Assets.at("javascripts/versionList.js")"></script>
     <script nonce="@nonce">
-    PLUGIN_ID = '@p.project.pluginId';
-    PROJECT_OWNER = '@p.project.ownerName';
-    PROJECT_SLUG = '@p.project.slug';
-    @if(visibleChannels.isDefined) {
-        CHANNEL_STRING = '@visibleChannels.get.mkString(",")';
-    }
-    TOTAL_VERSIONS = @versionCount;
+            PLUGIN_ID = '@p.project.pluginId';
+            PROJECT_OWNER = '@p.project.ownerName';
+            PROJECT_SLUG = '@p.project.slug';
+            @if(visibleChannels.isDefined) {
+            CHANNEL_STRING = '@visibleChannels.get.mkString(",")';
+            }
+            TOTAL_VERSIONS = @versionCount;
     </script>
+}
 
+@projects.view(p, sp, "#versions", noButtons = false, scripts) {
     <div class="container version-container">
         <div class="row">
             <div class="col-md-9">

@@ -1,91 +1,60 @@
 @import "variables";
 
-$footer-font-color: #ffffff;
-$footer-font-size: 0.875rem;
-$footer-row-padding: 1rem 0;
-$footer-row-terms-padding: 0.35rem;
+$copyright-color: #858585;
+$footer-border-color: #464646;
+$footer-link-hover-color: #c3c3c3;
 
-#footer {
+.footer {
+  border-top: 7px solid $footer-border-color;
+  background: $sponge_grey;
   text-align: center;
-  color: $footer-font-color;
-  font-size: $footer-font-size;
+  padding: 1rem 0;
+  margin-top: 1rem;
 
-  .footer-row {
-    padding: $footer-row-padding;
+  .logo {
+    justify-content: center;
 
-    p {
+    img {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  .links {
+    justify-content: space-around;
+    margin-bottom: 0.6rem;
+
+    ul {
+      list-style: none;
+      padding: 0;
       margin: 0;
-    }
 
-    [class*="col-"] {
-      align-self: center;
-    }
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
 
-    &.copyright {
-      background: $sponge_grey_dark;
-    }
-
-    &.terms {
-      padding: $footer-row-terms-padding;
-      background: $sponge_grey_light;
-
-      a {
-        color: #e5e5e5;
-        font-size: 1em;
-        padding: 0;
-        text-decoration: underline;
-      }
-    }
-
-    &.info {
-      background: $sponge_grey;
-
-      img.spongie {
-        height: 60px;
-        width: 60px;
+      > li {
+        padding: 0.3rem 0.4rem;
 
         @media (min-width: 768px) {
-          height: 74px;
-          width: 74px;
+          padding: 0.3rem 1rem;
+        }
+
+        a {
+          color: $copyright-color;
 
           &:hover {
-            animation-name: bounce;
-            animation-duration: .5s;
-            animation-fill-mode: both;
-            animation-iteration-count: infinite;
-          }
-
-          @-webkit-keyframes bounce {
-            0%, 100% {
-              transform: rotateZ(0);
-            }
-            33% {
-              transform: rotateZ(-5deg);
-            }
-            50% {
-              transform: rotateZ(0);
-            }
-            76% {
-              transform: rotateZ(5deg);
-            }
+            color: $footer-link-hover-color;
+            text-decoration: none;
           }
         }
       }
     }
   }
 
-  h5 {
-    font-size: 1.3em;
-    font-weight: bold;
-  }
-
-  @media (max-width: 768px) {
-    [class*="col-"] {
-      margin: 1em 0;
-    }
-
-    h5 {
-      margin-top: 0;
-    }
+  .copyright {
+    color: $sponge_grey_lighter;
+    font-size: 0.9rem;
   }
 }
