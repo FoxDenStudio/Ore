@@ -1,13 +1,30 @@
+@import "../variables";
+
 .card.categories {
+  .card-header {
+    padding: .65rem 1.25rem;
+    font-size: 1.1rem;
+  }
+
   .list-group {
     .list-group-item.list-group-item-action {
-      padding: .75rem 1.25rem;
+      padding: .5rem 1.25rem;
       border-radius: 0;
       border-left: none;
       border-right: none;
+      color: $sponge_grey;
+      font-weight: bold;
+      border-color: $sponge_grey_accents;
 
       &:last-child {
         border-bottom: none;
+      }
+
+      &.active {
+        background: #ffffff;
+        color: $sponge_grey;
+        border-color: $sponge_grey_accents;
+        border-right: 10px solid $sponge_yellow;
       }
 
       svg {

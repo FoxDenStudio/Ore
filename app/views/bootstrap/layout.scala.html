@@ -18,15 +18,28 @@ this.
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+        <!-- <!-- See https://goo.gl/qRE0vM -->
+        <meta name="theme-color" content="#333">
+
+        <link rel="icon" href="@routes.Assets.at("images/favicon.ico")">
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
 
-        <link rel="icon" href="@config.sponge.get[String]("icon")">
+        <!-- Font Awesome -->
+        <script type="text/javascript" nonce="@nonce">
+                window.FontAwesomeConfig = {
+                    autoAddCss: false
+                }
+        </script>
+        <script defer src="@routes.Assets.at("lib/font-awesome/svg-with-js/js/fontawesome.min.js")"></script>
+        <script defer src="@routes.Assets.at("lib/font-awesome/svg-with-js/js/fa-solid.min.js")"></script>
+        <script defer src="@routes.Assets.at("lib/font-awesome/svg-with-js/js/fa-regular.min.js")"></script>
+        <script defer src="@routes.Assets.at("lib/font-awesome/svg-with-js/js/fa-brands.min.js")"></script>
+        <link rel="stylesheet" type="text/css" href="@routes.Assets.at("lib/font-awesome/svg-with-js/css/fa-svg-with-js.css")" />
+
+        <!-- CSS -->
         <link rel="stylesheet" type="text/css" href="@routes.Assets.at("highlight/styles/default.css")" />
         <link rel="stylesheet" type="text/css" href="@routes.Assets.at("lib/bootstrap/css/bootstrap.min.css")" />
         <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/main.css")" />
-
-        <!-- See https://goo.gl/qRE0vM -->
-        <meta name="theme-color" content="#333">
     </head>
     <body class="site">
         @if(showHeader) {
@@ -48,7 +61,7 @@ this.
         }
 
         @if(scriptsEnabled) {
-            <script defer src="@routes.Assets.at("lib/font-awesome/svg-with-js/js/fontawesome-all.min.js")"></script>
+            <script type="text/javascript" src="@routes.Application.javascriptRoutes"></script>
             <script type="text/javascript" src="@routes.Assets.at("lib/jquery/jquery.min.js")"></script>
             <script type="text/javascript" src="@routes.Assets.at("lib/bootstrap/js/bootstrap.bundle.min.js")"></script>
             <script type="text/javascript" src="@routes.Assets.at("lib/momentjs/min/moment.min.js")"></script>

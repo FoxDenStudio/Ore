@@ -29,6 +29,8 @@ import play.api.i18n.MessagesApi
 import security.spauth.SingleSignOnConsumer
 import util.DataHelper
 import views.{html => views}
+import play.api.routing._
+import play.api.mvc._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -48,6 +50,14 @@ final class Application @Inject()(data: DataHelper,
                                   extends OreBaseController {
 
   private def FlagAction = Authenticated andThen PermissionAction[AuthRequest](ReviewFlags)
+
+  def javascriptRoutes = Action { implicit request =>
+    Ok(
+      JavaScriptReverseRouter("jsRoutes")(
+        routes.javascript.Application.showHome
+      )
+    ).as("text/javascript")
+  }
 
   /**
     * Show external link warning page.
@@ -544,4 +554,5 @@ final class Application @Inject()(data: DataHelper,
       Ok(views.users.admin.visibility(needsApproval, waitingProjects))
     }
   }
+
 }

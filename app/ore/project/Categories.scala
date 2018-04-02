@@ -60,7 +60,16 @@ object Categories extends Enumeration {
     extends super.Val(i, title)
       with MappedType[Category] {
     implicit val mapper: JdbcType[Category] = OrePostgresDriver.api.categoryTypeMapper
+
+    def createCategoryToggledQueryString(categoryList: Option[Seq[Category]]) : String = {
+      categoryList.map { seq =>
+        val newSeq = if(seq.contains(this)) seq.toSet - this else seq.toSet + this
+
+        if(Categories.visible.toSet.equals(newSeq)) "" else newSeq.map(_.i).mkString(",")
+      }.getOrElse(this.i.toString)
+    }
   }
+
   implicit def convert(value: Value): Category = value.asInstanceOf[Category]
 
 }

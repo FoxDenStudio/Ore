@@ -15,7 +15,6 @@ sorted according to different criteria.
 
 @import scala.util.Random
 
-@import io.lemonlabs.uri.Url
 @(models: Seq[(Project, User, Version, Seq[Tag])], visibleCategories: Option[Seq[Category]], query: Option[String], page: Int,
         sort: ProjectSortingStrategy, platform: Option[Platform])(implicit messages: Messages, flash: Flash,
         request: OreRequest[_], config: OreConfig)
@@ -33,20 +32,6 @@ sorted according to different criteria.
     (logo.get[String]("name"), logo.get[String]("image"), logo.get[String]("link"))
 }
 
-@categoryString = @{
-    visibleCategories.map(_.map(_.id.toString).mkString(","))
-}
-
-@categoryLink(category: Category) = @{
-    val url = Url.parse(if(request.secure) "https://" else "http://" + request.host + request.uri)
-
-    if(visibleCategories.contains(category)) {
-        ""
-    } else {
-        url.replaceParams("categories", if(categoryString.isDefined) categoryString.get + "," else "" + category.id.toString).toString
-    }
-}
-
 @orderingOption = @{
     sort match {
         case ProjectSortingStrategies.Default => None
@@ -54,17 +39,14 @@ sorted according to different criteria.
     }
 }
 
-@platformOption = @{
-    platform.map(_.name)
+@categoryString = @{
+    visibleCategories.map(_.map(_.id.toString).mkString(","))
 }
 
-@maybeActive(pform: Platform) = @{
-    platform.map { p =>
-        if(p.equals(pform))
-            "active"
-        else
-            ""
-    }
+@categoryLink(category: Category) = @{
+    val categoryString = category.createCategoryToggledQueryString(visibleCategories)
+
+    routes.Application.showHome(if(categoryString) Some(categoryString) else None, query, orderingOption, if(page == 1) None else Some(page), None)
 }
 
 @scripts = {
@@ -72,7 +54,7 @@ sorted according to different criteria.
 
     <script nonce="@nonce">
         @if(visibleCategories.isDefined) {
-            CATEGORY_STRING = "@visibleCategories.get.map(_.id).mkString(",")";
+            CATEGORY_STRING = "@categoryString";
         }
         @if(!sort.equals(ProjectSortingStrategies.Default)) {
             SORT_STRING = "@sort.id";
@@ -80,7 +62,6 @@ sorted according to different criteria.
         @if(request.getQueryString("q").isDefined) {
             QUERY_STRING = "@request.getQueryString("q").get";
         }
-        currentlyLoaded = @models.size;
     </script>
 }
 
@@ -104,7 +85,7 @@ sorted according to different criteria.
                 </div>
                 <div class="list-group ">
                     @for(category <- Categories.visible) {
-                        <a href="#" class="list-group-item list-group-item-action">
+                        <a href="@categoryLink(category)" class="list-group-item list-group-item-action @if(visibleCategories.isDefined && visibleCategories.get.contains(category)) { active }">
                             <i class="@category.icon fa-fw"></i>
                             <span>@category.title</span>
                         </a>

@@ -4,6 +4,8 @@
 
 GET     /*path/                                                     @controllers.Application.removeTrail(path)
 
+GET     /javascriptRoutes                                           @controllers.Application.javascriptRoutes
+
 # ---------- Admin ----------
 
 GET     /admin/user/:user                                           @controllers.Application.userAdmin(user)
@@ -59,7 +61,7 @@ GET     /api/:version/tags/:tagId                                   @controllers
 
 # ---------- Application ----------
 
-GET     /                                                           @controllers.Application.showHome(categories: Option[String], q: Option[String], sort: Option[Int], page: Option[Int], platform: Option[String])
+GET     /                                                           @controllers.Application.showHome(categories: Option[String] ?= None, q: Option[String] ?= None, sort: Option[Int] ?= None, page: Option[Int] ?= None, platform: Option[String] ?= None)
 GET     /linkout                                                    @controllers.Application.linkOut(remoteUrl: String)
 GET     /signup                                                     @controllers.Users.signUp()
 GET     /login                                                      @controllers.Users.logIn(sso: Option[String], sig: Option[String], returnUrl: Option[String])
@@ -195,5 +197,4 @@ POST    /:author/:slug/versions/:version/reviews/edit/:review       @controllers
 
 
 # ---------- Other ----------
-
 GET     /assets/*file                                               controllers.Assets.at(path="/public", file)

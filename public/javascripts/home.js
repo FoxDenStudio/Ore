@@ -69,10 +69,10 @@ $(function() {
     });
 
     // Initialize sorting selection
-    $('.select-sort').on('change', function() {
-        var url = '/?sort=' + $(this).find('option:selected').val();
-        if (CATEGORY_STRING) url += '&categories=' + CATEGORY_STRING;
-        go(url);
+    $('select#sortSelect').on('change', function() {
+        var newSort = $(this).find('option:selected').val();
+
+        go(jsRoutes.controllers.Application.showHome(CATEGORY_STRING, QUERY_STRING, newSort, null).absoluteURL())
     });
 
     // Initialize more button
