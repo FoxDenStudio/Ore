@@ -11,4 +11,19 @@ select.custom-select {
     background: $sponge_grey_accents;
     border-color: darken($sponge_grey_accents, 20);
   }
+
+  input {
+    border-color: $sponge_grey_accents;
+    border-radius: 0;
+
+    &:focus {
+      outline: none;
+      border-color: darken($sponge_grey_accents, 10);
+      box-shadow: none;
+    }
+  }
+
+  .btn {
+    z-index: 4;
+  }
 }

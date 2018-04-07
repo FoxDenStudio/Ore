@@ -101,6 +101,12 @@ ga('send', 'pageview');
 // Initialize highlighting
 hljs.initHighlightingOnLoad();
 
+$('input').keyup(function (e) {
+    if(e.keyCode === 13) {
+        $(this).trigger("submit");
+    }
+});
+
 $(function() {
     $('.alert-fade').fadeIn('slow');
 

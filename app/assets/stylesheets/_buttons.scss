@@ -20,6 +20,7 @@ $btn-dark-color: #ffffff;
     &:hover, &:focus {
       background: darken($background, 3);
       color: $color;
+      border-color: darken($border-color, 5);
     }
   }
 }

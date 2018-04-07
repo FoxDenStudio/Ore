@@ -1,0 +1,12 @@
+.list-group.project-list {
+
+  .list-group-item {
+    border-radius: 0;
+    margin-bottom: 0.25rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+}

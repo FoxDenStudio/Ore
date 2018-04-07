@@ -4,8 +4,6 @@
 
 GET     /*path/                                                     @controllers.Application.removeTrail(path)
 
-GET     /javascriptRoutes                                           @controllers.Application.javascriptRoutes
-
 # ---------- Admin ----------
 
 GET     /admin/user/:user                                           @controllers.Application.userAdmin(user)
@@ -197,4 +195,5 @@ POST    /:author/:slug/versions/:version/reviews/edit/:review       @controllers
 
 
 # ---------- Other ----------
+GET     /assets/javascripts/routes                                  controllers.Application.javascriptRoutes
 GET     /assets/*file                                               controllers.Assets.at(path="/public", file)

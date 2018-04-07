@@ -78,7 +78,7 @@ The main header displayed on each layout.
                 @if(user) {
                     @request.data.currentUser.map { user =>
                     <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="newDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" id="newDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-plus fa-fw"></i>
                             <span class="mobile-only">New</span>
                         </a>
@@ -101,7 +101,7 @@ The main header displayed on each layout.
                     </div>
                     @if(request.data.globalPerm(ReviewVisibility) || request.data.globalPerm(ReviewProjects) || request.data.globalPerm(ViewStats) || request.data.globalPerm(ViewHealth)) {
                         <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" id="adminDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-chess-rook fa-fw"></i>
                                 <span class="mobile-only">Admin Actions</span>
                             </a>
@@ -136,7 +136,7 @@ The main header displayed on each layout.
                     }
 
                     <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img class="user-avatar" src="@user.avatarUrl.getOrElse(routes.Assets.at("images/spongie-mark.svg"))" />
                             <span class="mobile-only">@user.username</span>
                         </a>

@@ -4,6 +4,12 @@
   .card-header {
     padding: .65rem 1.25rem;
     font-size: 1.1rem;
+    display: flex;
+    justify-content: space-between;
+
+    a {
+      color: #ffffff;
+    }
   }
 
   .list-group {
@@ -30,6 +36,54 @@
       svg {
         margin-right: 0.5rem;
       }
+    }
+  }
+}
+
+.ore-banner {
+  display: flex;
+  align-items: center;
+
+  .logo {
+    display: inline-block;
+    margin-right: 0.5rem;
+
+    img {
+      height: 4rem;
+      width: 4rem;
+    }
+  }
+
+  .description {
+    font-family: $sponge_headline_font;
+    display: inline-block;
+    font-size: 0.9rem;
+
+    .headline {
+      font-weight: bold;
+      font-size: 1.7rem;
+    }
+  }
+}
+
+.sponsor {
+  .logo {
+    max-width: 100%;
+    max-height: 2.5rem;
+  }
+
+  .card.sponsor-card {
+    margin-bottom: 0;
+    height: 5rem;
+
+    span {
+      font-size: 0.85rem;
+      position: absolute;
+      top: 5px;
+    }
+
+    img.logo {
+      margin-top: 0.75rem;
     }
   }
 }

@@ -66,11 +66,50 @@ sorted according to different criteria.
 }
 
 @bootstrap.layout(messages("general.title"), scripts) {
-    <div class="row">
-        <div class="col-md-9">
-
+    <div class="row mb-3">
+        <div class="col-lg-9 ore-banner mb-3 mb-lg-0">
+            <div class="row align-items-center">
+                <div class="col d-flex align-items-center">
+                    <div class="logo">
+                        <img src="@routes.Assets.at("images/ore-colored.svg")" />
+                    </div>
+                    <div class="description">
+                        <div class="headline">@messages("general.appName")</div>
+                        <div>@messages("general.description")</div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-lg-3 sponsor">
+            <div class="card sponsor-card">
+                <div class="card-body d-flex align-items-center justify-content-center">
+                    <span>@messages("general.sponsoredBy")</span>
+                    @defining(randomSponsor) { sponsor =>
+                        <a href="@sponsor._3">
+                            <img class="logo" src="@routes.Assets.at(sponsor._2)" />
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="input-group mb-3" id="project-search">
+                <input type="text" class="form-control" placeholder="Search in projects.." aria-label="Search Bar" aria-describedby="search-input" @if(query.isDefined) { value="@query" }>
+                <div class="input-group-append">
+                    <button class="btn sponge-yellow" type="button">Search</button>
+                </div>
+            </div>
+
+            @projects.list(
+                models = models,
+                page = page,
+                pageSize = config.projects.get[Int]("init-load"),
+                call = page => routes.Application.showHome(categoryString, query, orderingOption, Some(page), None)
+            )
+        </div>
+        <div class="col-lg-3">
             <div class="input-group mb-3">
                 <select class="custom-select" id="sortSelect">
                     <option selected value="@sort.id">@sort.title</option>
@@ -81,7 +120,12 @@ sorted according to different criteria.
             </div>
             <div class="card categories">
                 <div class="card-header">
-                    @messages("project.category.plural")
+                    <span>@messages("project.category.plural")</span>
+                    @if(visibleCategories.isDefined) {
+                        <a href="@routes.Application.showHome(None, query, orderingOption, None, None)">
+                            <i class="fas fa-times align-self-end"></i>
+                        </a>
+                    }
                 </div>
                 <div class="list-group ">
                     @for(category <- Categories.visible) {

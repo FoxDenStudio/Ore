@@ -35,7 +35,7 @@ libraryDependencies ++= Seq(
   "com.vladsch.flexmark"  % "flexmark-ext-wikilink"          %  "0.32.14",
 
   "org.webjars"       % "font-awesome" % "5.0.6",
-  "org.webjars.npm"   % "filesize"     % "3.3.0",
+  "org.webjars.npm"   % "filesize"     % "3.6.1",
   "org.webjars.npm"   % "jquery"       % "3.3.1",
   "org.webjars.npm"   % "moment"       % "2.22.0",
   "org.webjars.npm"   % "bootstrap"    % "4.0.0"
